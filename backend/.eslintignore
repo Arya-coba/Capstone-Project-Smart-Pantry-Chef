@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+.env
+*.log
+*.md
+*.json
+*.yaml
+*.yml
+.vscode/
+.idea/
