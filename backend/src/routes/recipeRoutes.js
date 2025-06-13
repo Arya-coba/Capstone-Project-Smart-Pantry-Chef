@@ -1,5 +1,8 @@
-const express = require('express');
-const { getRecipesByIngredients } = require('../controllers/recipeController');
+const express = require("express");
+const {
+  getRecipesByIngredients,
+  getRecipeById,
+} = require("../controllers/recipeController");
 
 const router = express.Router();
 
@@ -9,6 +12,9 @@ const router = express.Router();
  * @access  Private
  * @body    {string[]} ingredients - Array of ingredient names
  */
-router.post('/by-ingredients', getRecipesByIngredients);
+router.post("/by-ingredients", getRecipesByIngredients);
+
+// GET /api/recipes/:id
+router.get("/:id", getRecipeById);
 
 module.exports = router;

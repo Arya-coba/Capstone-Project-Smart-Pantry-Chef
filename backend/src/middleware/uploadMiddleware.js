@@ -1,14 +1,14 @@
-const multer = require('multer');
+const multer = require("multer");
 
 // Configure multer to use memory storage
 const storage = multer.memoryStorage();
 
 // File filter to only accept image files
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image/')) {
+  if (file.mimetype.startsWith("image/")) {
     cb(null, true);
   } else {
-    cb(new Error('Only image files are allowed!'), false);
+    cb(new Error("Only image files are allowed!"), false);
   }
 };
 

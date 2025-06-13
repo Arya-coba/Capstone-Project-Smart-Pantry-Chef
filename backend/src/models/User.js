@@ -1,27 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Name is required'],
+      required: [true, "Name is required"],
       trim: true,
-      minlength: [2, 'Name must be at least 2 characters long'],
-      maxlength: [50, 'Name cannot be longer than 50 characters'],
+      minlength: [2, "Name must be at least 2 characters long"],
+      maxlength: [50, "Name cannot be longer than 50 characters"],
     },
     email: {
       type: String,
-      required: [true, 'Email is required'],
+      required: [true, "Email is required"],
       unique: true, // This creates the index automatically
       trim: true,
       lowercase: true,
-      match: [/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Please provide a valid email address'],
+      match: [
+        /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+        "Please provide a valid email address",
+      ],
       index: true,
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
-      minlength: [6, 'Password must be at least 6 characters long'],
+      required: [true, "Password is required"],
+      minlength: [6, "Password must be at least 6 characters long"],
       select: false, // Don't return password by default
     },
   },
@@ -48,6 +51,6 @@ const userSchema = new mongoose.Schema(
 // Remove the duplicate index since it's already defined in the schema
 // userSchema.index({ email: 1 }, { unique: true });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
