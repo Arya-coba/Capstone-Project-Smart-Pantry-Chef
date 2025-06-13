@@ -130,3 +130,27 @@ taskkill /PID <PID> /F
 #### Melihat log aplikasi
 - Backend: Periksa output di terminal
 - Frontend: Gunakan browser dev tools (F12)
+
+### 7. Arsitektur Aplikasi (MVP)
+
+Smart Pantry Chef diorganisir menggunakan pola **Model-View-Presenter** agar kode terstruktur dan mudah dipelihara.
+
+| Layer | Berkas / Direktori | Peran |
+|-------|--------------------|-------|
+| **Model** | `backend/src/models` (Mongoose schemas), `ML micro-service` | Menyimpan & memproses data (user, resep, deteksi bahan). |
+| **View** | `frontend/src/pages` & `frontend/src/components` | Antarmuka React yang dirender di browser. |
+| **Presenter** | `frontend/src/contexts` (state & API hooks), `backend/src/controllers`, `routes` | Menjembatani Model ↔ View: menangani logika bisnis, pemanggilan API, translate proxy. |
+
+Alur Singkat:
+1. View (React component) memicu aksi (mis. cari resep) → Presenter FE memanggil REST API.
+2. Presenter BE (`controller`) memproses request, berinteraksi dengan Model/ML/API eksternal.
+3. Response dikirim kembali; Presenter FE memperbarui state dan View merender hasil.
+
+Diagram sederhana:
+```
+React View  <──presenter──>  REST API  <──controller──>  Model/DB
+                                 │
+                                 └──>  ML Service / LibreTranslate
+```
+
+Dengan pembagian ini, setiap layer dapat diuji dan dikembangkan secara terpisah.
