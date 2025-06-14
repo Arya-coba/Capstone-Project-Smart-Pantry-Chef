@@ -2,7 +2,6 @@ import IngredientInput from "./components/IngredientInput";
 import PantryInfo from "./components/PantryInfo";
 import RecipeSuggestions from "./components/RecipeSuggestions";
 import TodaysImpact from "./components/TodaysImpact";
-
 import { useState, useCallback, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
