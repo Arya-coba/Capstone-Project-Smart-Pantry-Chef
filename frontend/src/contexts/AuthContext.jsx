@@ -11,7 +11,7 @@ export const AuthContext = createContext(null);
 
 // Create a shared axios instance
 const api = axios.create({
-  baseURL: "", // vite proxy in dev, full domain in prod if set
+  baseURL: import.meta.env.VITE_API_BASE_URL || "/api",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
