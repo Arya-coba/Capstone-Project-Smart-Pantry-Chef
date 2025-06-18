@@ -13,7 +13,26 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+// Enhanced CORS configuration – allows the deployed frontend and properly replies to pre-flight requests
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "https://capstone-project-smart-pantry-chef.vercel.app",
+];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // If no origin (e.g. mobile apps, curl), allow it. Otherwise check if it is in the whitelist.
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS: Origin not allowed"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+// Explicitly enable pre-flight across-the-board so Express doesn't return 404 for OPTIONS
+app.options("*", cors());
 app.use(express.json());
 
 // Routes
